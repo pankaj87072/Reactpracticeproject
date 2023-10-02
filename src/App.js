@@ -1,24 +1,33 @@
-import logo from './logo.svg';
 import './App.css';
-
+import Headerrec from './Comp/Header';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import DATASHOWS from './DATASHOW';
+// import Icon from '@mui/material/Icon';
+import {useState} from 'react';
 function App() {
+  const [data,setdata]=useState("");
+  const [addata,setaddata]=useState([]);
+ const showdata=()=>{
+   setaddata([...addata, {data}]);
+   setdata("");
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+          <Headerrec />  
+          <div className="addlist">
+          <TextField id="filled-basic" label="" variant="filled" value={data} onChange={(event)=>setdata(event.target.value)}/> 
+          <Button variant="contained" id="addbut" onClick={showdata}>ADD</Button></div>
+          <div>
+           {
+            addata.map((element,index)=>{
+              return(
+             <DATASHOWS key={index} data={element.data} index={index}/>
+             )
+            })
+           }</div>
     </div>
+   
   );
 }
 
